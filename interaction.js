@@ -19,6 +19,7 @@ function DnD(canvas, interactor) {
         this.posInitX = getMousePosition(canvas, evt).x;
         this.posInitY = getMousePosition(canvas, evt).y;
         this.estPresse = true;
+        console.log("Pression: Position initiale X: " + this.posInitX + " Position initiale: Y " + this.posInitY);
     }.bind(this);
 
     // Mouvement de la souris
@@ -26,6 +27,7 @@ function DnD(canvas, interactor) {
         if (this.estPresse){
             this.posFinalX = getMousePosition(canvas, evt).x;
             this.posFinalY = getMousePosition(canvas, evt).y;
+            console.log("Deplacement: Position finale X: " + this.posFinalX + " Position finale: Y " + this.posFinalY);
         }
     }.bind(this);
 
@@ -35,10 +37,14 @@ function DnD(canvas, interactor) {
             this.posFinalX = getMousePosition(canvas, evt).x;
             this.posFinalY = getMousePosition(canvas, evt).y;
             this.estPresse = false;
+            console.log("Relachement: Position initiale X: " + this.posInitX + " Postition initiale Y: " + this.posInitY + " Position finale X: " + this.posFinalX + " Position finale Y: " + this.posFinalY);
         }
     }.bind(this);
 
 	// Associer les fonctions précédentes aux évènements du canvas.
+    canvas.addEventListener('pression', this.pression);
+    canvas.addEventListener('deplacement', this.deplacement);
+    canvas.addEventListener('relachement', this.relachement);
 };
 
 
