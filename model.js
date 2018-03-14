@@ -9,12 +9,9 @@ function Drawing() {
     }.bind(this);
 
     this.deleteForm = function(index) {
-        console.log("iciiiiiiiiiiiiiiiiiiiii")
-        console.log(index)
         if(index > -1) {
             this.formes.splice(index, 1);
         }
-        console.log(this.formes)
     }.bind(this);
 
     this.clearForms = function() {
