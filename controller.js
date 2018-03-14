@@ -34,16 +34,33 @@ function Pencil(ctx, drawing, canvas) {
         this.currentShape.setFinalY(DnD.posFinalY);
         drawing.paint(ctx, canvas);
         this.currentShape.paint(ctx, canvas);
-
     }.bind(this);
 
     // création de la forme dans le canvas
     this.onInteractionEnd = function() {
         drawing.addForme(this.currentShape);
         drawing.paint(ctx, canvas);
+        this.updateList();
     }.bind(this);
 
-    // EventListeners
+    this.updateList = function () {
+        const name = (this.editingMode ? "Rectangle" : "Line" );
+        const li = document.createElement("li");
+        const button = document.createElement("button");
+        button.className = "btn btn-default remove";
+        const icon = document.createElement("span")
+        icon.className = "glyphicon glyphicon-remove-sign";
+        button.appendChild(icon);
+        li.appendChild(document.createTextNode(name));
+        li.appendChild(button);
+        button.onclick = function () {
+            const index = $(this).parent('li').index(); //Il y a du Jquery pour bootstrap alors pq ne pas l'utiliser ;)
+            this.parentElement.remove(this);
+            drawing.deleteForm(index);
+            drawing.paint(ctx, canvas);
+        };
+        shapeList.appendChild(li);
+    };
     buttonLine.addEventListener('click', this.changeEditingMode.bind(this));
     buttonRectangle.addEventListener('click', this.changeEditingMode.bind(this));
     spinnerWidth.addEventListener('change', this.changeLineWidth.bind(this));
